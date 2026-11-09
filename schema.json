@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/solimaniac/launcher-pds-dir/main/schema.json",
-  "title": "Launcher PDS directory",
+  "$id": "https://raw.githubusercontent.com/solimaniac/pds-registry/main/schema.json",
+  "title": "PDS registry",
   "type": "array",
   "items": {
     "type": "object",

@@ -1,5 +1,5 @@
 {
-  "name": "launcher-pds-dir",
+  "name": "pds-registry",
   "version": "0.1.0",
   "description": "An interoperable directory of AT Protocol account hosts and entryways.",
   "license": "MIT",
@@ -36,10 +36,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/solimaniac/launcher-pds-dir.git"
+    "url": "git+https://github.com/solimaniac/pds-registry.git"
   },
-  "homepage": "https://github.com/solimaniac/launcher-pds-dir#readme",
-  "bugs": "https://github.com/solimaniac/launcher-pds-dir/issues",
+  "homepage": "https://github.com/solimaniac/pds-registry#readme",
+  "bugs": "https://github.com/solimaniac/pds-registry/issues",
   "keywords": [
     "atproto",
     "at-protocol",
