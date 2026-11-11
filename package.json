@@ -25,7 +25,7 @@
   },
   "files": [
     "dist",
-    "data",
+    "data/providers.json",
     "logos",
     "schema.json",
     "LICENSE"

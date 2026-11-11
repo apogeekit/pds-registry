@@ -18,6 +18,6 @@ const providers = selectProviders({ ids: ['eurosky', 'blacksky'] })
 
 The same snapshot is available as `pds-registry/providers.json`, with a JSON schema at `pds-registry/schema.json`. Copy `logos/` into your app's public assets if needed. Names and logos belong to their owners.
 
-Metadata is a curated snapshot, not a live availability guarantee. Missing `requiresInvite` means unknown. Source information is in `data/provenance.json`.
+Metadata is a curated snapshot, not a live availability guarantee. Missing `requiresInvite` means unknown.
 
 Not published to npm yet. Development: `npm ci && npm run check`. To publish later: `npm publish --access public`; npmx.dev browses the npm registry. Nothing is published automatically.
