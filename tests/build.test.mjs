@@ -52,6 +52,20 @@ test('provider files must conform to the shared schema', () => {
   expect(() => buildDirectory(source, output)).toThrow('Invalid provider data')
 })
 
+test.each(['id', 'name', 'serviceUrl', 'description', 'region', 'enabled', 'logo'])(
+  'a provider cannot omit its required %s field',
+  field => {
+    addProvider('alpha', { [field]: undefined })
+    expect(() => buildDirectory(source, output)).toThrow()
+  },
+)
+
+test('every provider directory must include provider.json', () => {
+  addProvider('alpha')
+  rmSync(join(source, 'alpha/provider.json'))
+  expect(() => buildDirectory(source, output)).toThrow(/provider\.json/)
+})
+
 test('logos cannot escape their provider directory', () => {
   addProvider('alpha', { logo: '../alpha.svg' })
   writeFileSync(join(source, 'alpha.svg'), '<svg/>')

@@ -1,21 +1,16 @@
 import { expect, test } from 'vitest'
-import { existsSync, readFileSync, readdirSync } from 'node:fs'
-import { Ajv2020 } from 'ajv/dist/2020.js'
+import { readFileSync, readdirSync } from 'node:fs'
 import { providers, getProvider, parseProviders, selectProviders, resolveProviderLogo } from '../src/index'
 
-test('the snapshot includes every provider directory, conforms to the schema, and ships every logo', () => {
-  const ajv = new Ajv2020()
-  const valid = ajv.compile(JSON.parse(readFileSync(new URL('../schema.json', import.meta.url), 'utf8')))
-  expect(valid(providers), JSON.stringify(valid.errors)).toBe(true)
+test('the exported snapshot matches every source provider record', () => {
   const directory = new URL('../providers/', import.meta.url)
   const ids = readdirSync(directory, { withFileTypes: true })
     .filter(entry => entry.isDirectory())
     .map(entry => entry.name)
   expect(providers.map(p => p.id).sort()).toEqual(ids.sort())
-  for (const p of providers) {
-    expect(existsSync(new URL(`${p.id}/${p.logo}`, directory))).toBe(true)
-    const data = JSON.parse(readFileSync(new URL(`${p.id}/provider.json`, directory), 'utf8'))
-    expect(p).toEqual(parseProviders([data])[0])
+  for (const id of ids) {
+    const data = JSON.parse(readFileSync(new URL(`${id}/provider.json`, directory), 'utf8'))
+    expect(getProvider(id)).toEqual(parseProviders([data])[0])
   }
 })
 
