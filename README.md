@@ -1,5 +1,8 @@
 # pds-registry
 
+> [!WARNING]
+> **Work in progress (WIP).** This project is experimental and not ready for production use. APIs and data formats may change.
+
 AT Protocol account hosts and entryways, extracted from [launcher.at](https://github.com/solimaniac/launcher-at). Includes descriptions, regions, invite information, and logos.
 
 ```sh
