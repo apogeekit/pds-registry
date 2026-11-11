@@ -16,7 +16,17 @@ const providers = selectProviders({ ids: ['eurosky', 'blacksky'] })
 // Pass providers directly to launcher-components.
 ```
 
-The same snapshot is available as `pds-registry/providers.json`, with a JSON schema at `pds-registry/schema.json`. Copy `logos/` into your app's public assets if needed. Names and logos belong to their owners.
+Each provider has its own directory:
+
+```text
+providers/bluesky/
+  provider.json
+  bluesky.svg
+```
+
+To add a provider, copy an existing directory, match its name to the provider's `id`, and edit `provider.json` using the fields in `schema.json#/items`. Include the referenced logo in that directory. Builds discover providers automatically and export the combined snapshot as `pds-registry/providers.json`, sorted by ID.
+
+Individual records and logos are available at `pds-registry/providers/<id>/provider.json` and `pds-registry/providers/<id>/<logo>`. Copy provider directories into your app's public assets if needed; logo filenames are relative to their provider's directory. Names and logos belong to their owners.
 
 Metadata is a curated snapshot, not a live availability guarantee. Missing `requiresInvite` means unknown.
 

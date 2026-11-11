@@ -18,15 +18,14 @@
         "default": "./dist/index.cjs"
       }
     },
-    "./providers.json": "./data/providers.json",
+    "./providers.json": "./dist/providers.json",
     "./schema.json": "./schema.json",
-    "./logos/*": "./logos/*",
+    "./providers/*": "./providers/*",
     "./package.json": "./package.json"
   },
   "files": [
     "dist",
-    "data/providers.json",
-    "logos",
+    "providers",
     "schema.json",
     "LICENSE"
   ],
@@ -51,10 +50,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
+    "build": "node scripts/build-directory.mjs && tsup src/index.ts --format esm,cjs --dts",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "check": "npm run typecheck && npm test && npm run build",
+    "check": "npm run build && npm run typecheck && npm test",
     "prepare": "npm run build",
     "prepublishOnly": "npm run check"
   },

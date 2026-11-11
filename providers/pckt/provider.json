@@ -1,0 +1,9 @@
+{
+  "id": "pckt",
+  "name": "pckt",
+  "serviceUrl": "https://pds.pckt.cafe",
+  "description": "An open-web publishing platform focused on blogging, creator ownership, and portable identity.",
+  "region": "United States",
+  "logo": "pckt.svg",
+  "enabled": true
+}

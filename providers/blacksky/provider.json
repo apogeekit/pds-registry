@@ -1,0 +1,9 @@
+{
+  "id": "blacksky",
+  "name": "Blacksky",
+  "serviceUrl": "https://blacksky.app",
+  "description": "A community-led social platform focused on safety, community governance, and user control.",
+  "region": "United States",
+  "logo": "blacksky.svg",
+  "enabled": true
+}

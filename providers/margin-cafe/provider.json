@@ -1,0 +1,9 @@
+{
+  "id": "margin-cafe",
+  "name": "Margin",
+  "serviceUrl": "https://margin.cafe",
+  "description": "A social platform for collecting, annotating, and sharing content from around the web.",
+  "region": "European Union",
+  "logo": "margin.svg",
+  "enabled": true
+}

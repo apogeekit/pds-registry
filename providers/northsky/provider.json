@@ -1,0 +1,10 @@
+{
+  "id": "northsky",
+  "name": "Northsky",
+  "serviceUrl": "https://northsky.social",
+  "description": "A Canadian nonprofit cooperative building social infrastructure for 2SLGBTQIA+ and marginalized communities.",
+  "region": "Canada",
+  "logo": "northsky.svg",
+  "enabled": true,
+  "requiresInvite": true
+}

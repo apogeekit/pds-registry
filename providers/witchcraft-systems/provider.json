@@ -1,0 +1,10 @@
+{
+  "id": "witchcraft-systems",
+  "name": "Witchcraft Systems",
+  "serviceUrl": "https://pds.witchcraft.systems",
+  "description": "An independent technology collective operating infrastructure for the Atmosphere and other open internet services from Japan.",
+  "region": "Japan",
+  "logo": "witchcraft-systems.png",
+  "enabled": true,
+  "requiresInvite": true
+}

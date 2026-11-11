@@ -1,0 +1,9 @@
+{
+  "id": "eurosky",
+  "name": "Eurosky",
+  "serviceUrl": "https://eurosky.social",
+  "description": "A European nonprofit focused on providing independent social infrastructure on the Atmosphere.",
+  "region": "European Union",
+  "logo": "eurosky.png",
+  "enabled": true
+}

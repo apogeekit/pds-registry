@@ -1,0 +1,9 @@
+{
+  "id": "bluesky",
+  "name": "Bluesky",
+  "serviceUrl": "https://bsky.social",
+  "description": "A social media company building an open social network on the Atmosphere.",
+  "region": "United States",
+  "logo": "bluesky.svg",
+  "enabled": true
+}

@@ -1,0 +1,9 @@
+{
+  "id": "npmx",
+  "name": "npmx",
+  "serviceUrl": "https://npmx.social",
+  "description": "A community-built npm client that adds social and discovery features using the Atmosphere.",
+  "region": "European Union",
+  "logo": "npmx.svg",
+  "enabled": true
+}

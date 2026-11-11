@@ -1,0 +1,9 @@
+{
+  "id": "spark",
+  "name": "Spark",
+  "serviceUrl": "https://pds.sprk.so",
+  "description": "An open-source social networking project focused on customizable, user-controlled feeds.",
+  "region": "United States",
+  "logo": "spark.svg",
+  "enabled": true
+}

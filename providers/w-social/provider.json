@@ -1,0 +1,10 @@
+{
+  "id": "w-social",
+  "name": "W Social",
+  "serviceUrl": "https://pds.wsocial.network",
+  "description": "A European social network focused on privacy, authenticity, and human-centered online communities.",
+  "region": "European Union",
+  "logo": "w-social.svg",
+  "enabled": true,
+  "requiresInvite": true
+}

@@ -1,4 +1,4 @@
-import source from '../data/providers.json'
+import source from '../dist/providers.json'
 
 /** A signup entrypoint may be a PDS or an entryway serving multiple PDSs. */
 export interface PdsProvider {
@@ -10,7 +10,7 @@ export interface PdsProvider {
   /** Editorial hosting region; not a residency or jurisdiction guarantee. */
   readonly region: string
   readonly enabled: boolean
-  /** Filename in the package's logos/ directory; not a URL. */
+  /** Filename beside providers/<id>/provider.json; not a URL. */
   readonly logo?: string
   /** Absence means unknown, not that signups are open. */
   readonly requiresInvite?: boolean
@@ -102,7 +102,7 @@ export function selectProviders(
     .sort((a, b) => (query.sort === 'za' ? -1 : 1) * a.name.localeCompare(b.name, 'en'))
 }
 
-/** Copy logos/ to your app's public assets, then supply that directory's HTTPS URL. */
+/** Supply the HTTPS directory where this provider's logo is hosted. */
 export function resolveProviderLogo(provider: PdsProvider, baseUrl: string | URL): string | undefined {
   if (!provider.logo) return undefined
   if (!LOGO.test(provider.logo) || provider.logo.includes('..')) throw new TypeError('Invalid logo filename')

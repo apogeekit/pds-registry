@@ -1,0 +1,9 @@
+{
+  "id": "tangled",
+  "name": "Tangled",
+  "serviceUrl": "https://tngl.sh",
+  "description": "A social coding platform for hosting, sharing, and collaborating on Git repositories.",
+  "region": "European Union",
+  "logo": "tangled.svg",
+  "enabled": true
+}

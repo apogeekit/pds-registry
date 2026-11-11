@@ -1,0 +1,9 @@
+{
+  "id": "selfhosted-social",
+  "name": "selfhosted.social",
+  "serviceUrl": "https://selfhosted.social",
+  "description": "An independent community project providing hosted infrastructure for the Atmosphere.",
+  "region": "United States",
+  "logo": "selfhosted-social.png",
+  "enabled": true
+}

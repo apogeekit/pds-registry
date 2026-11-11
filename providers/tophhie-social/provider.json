@@ -1,0 +1,9 @@
+{
+  "id": "tophhie-social",
+  "name": "Tophhie Social",
+  "serviceUrl": "https://pds.tophhie.cloud",
+  "description": "A UK-based technology project focused on privacy, independent hosting, and open social infrastructure.",
+  "region": "United Kingdom",
+  "logo": "tophhie-social.svg",
+  "enabled": true
+}
