@@ -1,5 +1,6 @@
 import { expect, test } from 'vitest'
 import { readFileSync, readdirSync } from 'node:fs'
+import snapshot from '../providers.json'
 import {
   providers,
   getProvider,
@@ -27,6 +28,7 @@ test('the exported snapshot matches every source provider record', () => {
   expect(providers.map(p => p.id).sort()).toEqual(ids.sort())
   for (const id of ids) {
     const data = JSON.parse(readFileSync(new URL(`${id}/provider.json`, directory), 'utf8'))
+    expect(snapshot.find(provider => provider.id === id)).toEqual(data)
     const provider = getProvider(id)
     expect(provider).toEqual(parseProviders([data])[0])
     expect(Object.isFrozen(provider)).toBe(true)

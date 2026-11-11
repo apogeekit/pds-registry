@@ -4,11 +4,37 @@ import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { Ajv2020 } from 'ajv/dist/2020.js'
 import schema from '../schema.json'
+import snapshot from '../providers.json'
 
 const root = fileURLToPath(new URL('../providers/', import.meta.url))
 const entries = readdirSync(root, { withFileTypes: true })
 const required = [...new Set([...schema.items.required, 'logo'])]
 const validate = new Ajv2020({ allErrors: true }).compile({ ...schema.items, required })
+const validateSnapshot = new Ajv2020({ allErrors: true }).compile(schema)
+
+const fixture = {
+  id: 'example',
+  name: 'Example host',
+  serviceUrl: 'https://pds.example',
+  description: 'A fictional account host for schema tests.',
+  region: 'Test region',
+  enabled: true,
+  logo: 'example.svg',
+}
+
+test('the manually maintained provider snapshot conforms to the public schema', () => {
+  expect(validateSnapshot(snapshot), JSON.stringify(validateSnapshot.errors)).toBe(true)
+})
+
+test.each(required)('provider metadata must include its required %s field', field => {
+  expect(validate(fixture), JSON.stringify(validate.errors)).toBe(true)
+  const incomplete: Record<string, unknown> = { ...fixture }
+  delete incomplete[field]
+  expect(validate(incomplete)).toBe(false)
+  expect(validate.errors).toContainEqual(
+    expect.objectContaining({ keyword: 'required', params: { missingProperty: field } }),
+  )
+})
 
 test('the registry contains provider directories', () => {
   expect(entries.length).toBeGreaterThan(0)

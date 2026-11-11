@@ -1,4 +1,4 @@
-import source from '../dist/providers.json'
+import source from '../providers.json'
 
 /** A signup entrypoint may be a PDS or an entryway serving multiple PDSs. */
 export interface PdsProvider {

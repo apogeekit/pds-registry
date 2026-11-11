@@ -24,7 +24,7 @@ providers/bluesky/
   bluesky.svg
 ```
 
-To add a provider, copy an existing directory, match its name to the provider's `id`, and edit `provider.json` using the fields in `schema.json#/items`. Include the referenced logo in that directory. Builds discover providers automatically and export the combined snapshot as `pds-registry/providers.json`, sorted by ID.
+To add a provider, copy an existing directory, match its name to the provider's `id`, and edit `provider.json` using the fields in `schema.json#/items`. Include the referenced logo in that directory. Also update the root `providers.json`, which is maintained manually and exported as `pds-registry/providers.json`. Tests verify that it matches every provider record.
 
 Individual records and logos are available at `pds-registry/providers/<id>/provider.json` and `pds-registry/providers/<id>/<logo>`. Copy provider directories into your app's public assets if needed; logo filenames are relative to their provider's directory. Names and logos belong to their owners.
 
