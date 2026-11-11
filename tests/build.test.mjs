@@ -4,6 +4,9 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { buildDirectory } from '../scripts/build-directory.mjs'
 
+const schema = JSON.parse(readFileSync(new URL('../schema.json', import.meta.url), 'utf8'))
+const requiredFields = [...new Set([...schema.items.required, 'logo'])]
+
 let root
 let source
 let output
@@ -52,13 +55,10 @@ test('provider files must conform to the shared schema', () => {
   expect(() => buildDirectory(source, output)).toThrow('Invalid provider data')
 })
 
-test.each(['id', 'name', 'serviceUrl', 'description', 'region', 'enabled', 'logo'])(
-  'a provider cannot omit its required %s field',
-  field => {
-    addProvider('alpha', { [field]: undefined })
-    expect(() => buildDirectory(source, output)).toThrow()
-  },
-)
+test.each(requiredFields)('a provider cannot omit its required %s field', field => {
+  addProvider('alpha', { [field]: undefined })
+  expect(() => buildDirectory(source, output)).toThrow()
+})
 
 test('every provider directory must include provider.json', () => {
   addProvider('alpha')

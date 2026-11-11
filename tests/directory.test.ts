@@ -1,6 +1,23 @@
 import { expect, test } from 'vitest'
 import { readFileSync, readdirSync } from 'node:fs'
-import { providers, getProvider, parseProviders, selectProviders, resolveProviderLogo } from '../src/index'
+import {
+  providers,
+  getProvider,
+  parseProviders,
+  selectProviders,
+  resolveProviderLogo,
+  type PdsProvider,
+} from '../src/index'
+
+const fixture: PdsProvider = {
+  id: 'example',
+  name: 'Example host',
+  serviceUrl: 'https://pds.example',
+  description: 'A fictional account host for API tests.',
+  region: 'Test region',
+  enabled: true,
+  logo: 'example.svg',
+}
 
 test('the exported snapshot matches every source provider record', () => {
   const directory = new URL('../providers/', import.meta.url)
@@ -10,23 +27,36 @@ test('the exported snapshot matches every source provider record', () => {
   expect(providers.map(p => p.id).sort()).toEqual(ids.sort())
   for (const id of ids) {
     const data = JSON.parse(readFileSync(new URL(`${id}/provider.json`, directory), 'utf8'))
-    expect(getProvider(id)).toEqual(parseProviders([data])[0])
+    const provider = getProvider(id)
+    expect(provider).toEqual(parseProviders([data])[0])
+    expect(Object.isFrozen(provider)).toBe(true)
   }
+  expect(getProvider('')).toBeUndefined()
+  expect(
+    selectProviders()
+      .map(p => p.id)
+      .sort(),
+  ).toEqual(
+    providers
+      .filter(p => p.enabled)
+      .map(p => p.id)
+      .sort(),
+  )
 })
 
 test('allowlists are strict, including empty lists and disabled hosts', () => {
-  expect(selectProviders({ ids: [] })).toEqual([])
-  expect(() => selectProviders({ ids: ['typo'] })).toThrow('Unknown provider')
-  expect(selectProviders({ ids: ['bluesky'] }).map(p => p.id)).toEqual(['bluesky'])
-  expect(selectProviders({ ids: ['bluesky'] }, [{ ...getProvider('bluesky')!, enabled: false }])).toEqual([])
-  expect(Object.isFrozen(providers[0])).toBe(true)
+  const directory = [fixture]
+  expect(selectProviders({ ids: [] }, directory)).toEqual([])
+  expect(() => selectProviders({ ids: ['missing'] }, directory)).toThrow('Unknown provider')
+  expect(selectProviders({ ids: [fixture.id] }, directory).map(p => p.id)).toEqual([fixture.id])
+  expect(selectProviders({ ids: [fixture.id] }, [{ ...fixture, enabled: false }])).toEqual([])
 })
 
 test('unknown invite requirements are distinct from explicitly open signup', () => {
   const snapshot = [
-    { ...providers[0]!, id: 'open', requiresInvite: false },
-    { ...providers[0]!, id: 'unknown', requiresInvite: undefined },
-    { ...providers[0]!, id: 'closed', requiresInvite: true },
+    { ...fixture, id: 'open', requiresInvite: false },
+    { ...fixture, id: 'unknown', requiresInvite: undefined },
+    { ...fixture, id: 'closed', requiresInvite: true },
   ]
   expect(selectProviders({ invite: 'not-required' }, snapshot).map(p => p.id)).toEqual(['open'])
   expect(selectProviders({ invite: 'unknown' }, snapshot).map(p => p.id)).toEqual(['unknown'])
@@ -39,14 +69,12 @@ test('rejects unsafe data and equivalent duplicate service endpoints', () => {
     'https://user:pass@example.com',
     'https://host.test/#token',
   ]) {
-    expect(() => parseProviders([{ ...providers[0], serviceUrl }])).toThrow()
+    expect(() => parseProviders([{ ...fixture, serviceUrl }])).toThrow()
   }
-  expect(() =>
-    parseProviders([getProvider('bluesky'), { ...getProvider('eurosky'), serviceUrl: 'https://bsky.social/' }]),
-  ).toThrow('Duplicate')
-  expect(() => parseProviders([{ ...providers[0], logo: '../escape.svg' }])).toThrow()
-  expect(() => parseProviders([{ ...providers[0], requiresInvite: 'false' }])).toThrow()
-  expect(resolveProviderLogo(getProvider('bluesky')!, 'https://my.app/hosts/bluesky')).toBe(
-    'https://my.app/hosts/bluesky/bluesky.svg',
+  expect(() => parseProviders([fixture, { ...fixture, id: 'alias', serviceUrl: `${fixture.serviceUrl}/` }])).toThrow(
+    'Duplicate',
   )
+  expect(() => parseProviders([{ ...fixture, logo: '../escape.svg' }])).toThrow()
+  expect(() => parseProviders([{ ...fixture, requiresInvite: 'false' }])).toThrow()
+  expect(resolveProviderLogo(fixture, 'https://app.example/assets')).toBe('https://app.example/assets/example.svg')
 })
